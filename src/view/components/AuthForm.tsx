@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
-import RegisterForm from "./RegisterForm.tsx";
-import LoginForm from "./LoginForm.tsx";
+import RegisterForm from "../pages/Register/RegisterForm.tsx";
+import LoginForm from "../pages/Login/LoginForm.tsx";
 
 interface AuthFormProps {
   type: 'login' | 'register';
