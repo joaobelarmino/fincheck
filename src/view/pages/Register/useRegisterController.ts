@@ -1,6 +1,11 @@
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
+import {useForm} from 'react-hook-form'
+import {zodResolver} from '@hookform/resolvers/zod'
+import {z} from 'zod'
+import {useMutation} from '@tanstack/react-query'
+
+import {authService} from "../../../app/services/authService";
+import {SignupParams} from '../../../app/services/authService/signup';
+import toast from "react-hot-toast";
 
 const schema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -10,16 +15,27 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-export function useRegisterController () {
+
+export function useRegisterController() {
   const {
-    handleSubmit: hookFormHandleSubmit,
+    handleSubmit: hookFormSubmit,
     register,
-    formState: { errors }
-  } = useForm<FormData>({ resolver: zodResolver(schema) })
+    formState: {errors}
+  } = useForm<FormData>({resolver: zodResolver(schema)})
 
-  const handleSubmit = hookFormHandleSubmit(() => {
-
+  const {mutateAsync, isLoading} = useMutation({
+    mutationFn: async (data: SignupParams) => {
+      return authService.signup(data);
+    }
   })
 
-  return { handleSubmit, register, errors }
+  const handleSubmit = hookFormSubmit(async (data) => {
+    try {
+      await mutateAsync(data);
+    } catch (e) {
+      toast.error("Ocorreu um erro no seu cadastro.")
+    }
+  })
+
+  return {handleSubmit, register, errors, isLoading}
 }
