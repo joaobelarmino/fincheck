@@ -3,7 +3,7 @@ import Button from "../../components/Button.tsx";
 import {useLoginController} from "./useLoginController.ts";
 
 export default function LoginForm() {
-  const { handleSubmit, register, errors } = useLoginController();
+  const {handleSubmit, register, errors, isLoading} = useLoginController();
 
   return (
     <form
@@ -23,7 +23,7 @@ export default function LoginForm() {
         error={errors.password?.message}
         {...register("password")}
       />
-      <Button className="mt-2" type="submit">Entrar</Button>
+      <Button className="mt-2" type="submit" isLoading={isLoading}>Entrar</Button>
     </form>
   );
 }
