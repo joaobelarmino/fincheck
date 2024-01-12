@@ -1,4 +1,4 @@
-import {httpClient} from "../httpClient.ts";
+import { httpClient } from '../httpClient.ts';
 
 export interface SigninParams {
   email: string;
@@ -10,7 +10,7 @@ interface SigninResponse {
 }
 
 export default async function signin(params: SigninParams) {
-  const {data} = await httpClient.post<SigninResponse>('/auth/signin', params);
+  const { data } = await httpClient.post<SigninResponse>('/auth/signin', params);
 
   return data;
 }

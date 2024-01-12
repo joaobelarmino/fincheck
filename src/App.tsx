@@ -1,9 +1,17 @@
-import Routes from "./Router";
-import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
-import {Toaster} from "react-hot-toast";
-import {AuthContextProvider} from "./app/contexts/AuthContext.tsx";
+import Routes from './Router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { Toaster } from 'react-hot-toast';
+import { AuthContextProvider } from './app/contexts/AuthContext.tsx';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    }
+  }
+});
 
 export default function App() {
   return (
@@ -13,6 +21,8 @@ export default function App() {
 
         <Toaster/>
       </AuthContextProvider>
+
+      <ReactQueryDevtools/>
     </QueryClientProvider>
-  )
+  );
 }
