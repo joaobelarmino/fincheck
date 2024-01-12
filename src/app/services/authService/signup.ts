@@ -1,4 +1,4 @@
-import {httpClient} from "../httpClient.ts";
+import { httpClient } from '../httpClient.ts';
 
 export interface SignupParams {
   name: string;
@@ -11,7 +11,7 @@ interface SignupResponse {
 }
 
 export default async function signup(params: SignupParams) {
-  const {data} = await httpClient.post<SignupResponse>('/auth/signup', params);
+  const { data } = await httpClient.post<SignupResponse>('/auth/signup', params);
 
   return data;
 }

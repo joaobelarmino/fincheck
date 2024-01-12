@@ -1,10 +1,12 @@
-import {Routes, Route, BrowserRouter } from 'react-router-dom';
+import {
+ Routes, Route, BrowserRouter 
+} from 'react-router-dom';
 
-import AuthGuard from "./AuthGuard.tsx";
-import AuthLayout from "../view/layouts/AuthLayout.tsx";
-import Login from "../view/pages/Login";
-import Register from "../view/pages/Register";
-import Dashboard from "../view/pages/Dashboard";
+import AuthGuard from './AuthGuard.tsx';
+import AuthLayout from '../view/layouts/AuthLayout.tsx';
+import Login from '../view/pages/Login';
+import Register from '../view/pages/Register';
+import Dashboard from '../view/pages/Dashboard';
 
 export default function Router() {
   return (
@@ -24,5 +26,5 @@ export default function Router() {
 
       </Routes>
     </BrowserRouter>
-  )
+  );
 }

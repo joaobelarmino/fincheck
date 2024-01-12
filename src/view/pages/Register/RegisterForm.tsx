@@ -1,9 +1,11 @@
-import Input from '../../components/Input.tsx'
-import Button from '../../components/Button.tsx'
-import {useRegisterController} from './useRegisterController.ts'
+import Input from '../../components/Input.tsx';
+import Button from '../../components/Button.tsx';
+import { useRegisterController } from './useRegisterController.ts';
 
 export default function RegisterForm() {
-  const {handleSubmit, register, errors, isLoading} = useRegisterController()
+  const {
+ handleSubmit, register, errors, isLoading 
+} = useRegisterController();
 
   return (
     <form onSubmit={handleSubmit} className="mt-[60px] flex flex-col gap-4">
@@ -13,5 +15,5 @@ export default function RegisterForm() {
 
       <Button className="mt-2" type="submit" isLoading={isLoading}>Criar conta</Button>
     </form>
-  )
+  );
 }
