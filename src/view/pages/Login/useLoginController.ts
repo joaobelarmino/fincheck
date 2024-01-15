@@ -1,10 +1,11 @@
 import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
+import toast from 'react-hot-toast';
 import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from '@tanstack/react-query';
+
 import { authService } from '../../../app/services/authService';
 import { SigninParams } from '../../../app/services/authService/signin.ts';
-import toast from 'react-hot-toast';
 import { useAuth } from '../../../app/hooks/useAuth.ts';
 
 const schema = z.object({
@@ -35,12 +36,14 @@ export function useLoginController() {
 
       signin(accessToken);
     } catch (error) {
-      console.log(error);
       toast.error('Credenciais inválidas!');
     }
   });
 
   return {
- handleSubmit, register, errors, isLoading 
-};
+    handleSubmit,
+    register,
+    errors,
+    isLoading
+  };
 }
