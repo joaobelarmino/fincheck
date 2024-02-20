@@ -1,5 +1,3 @@
-import { TransactionsIcon } from '../../../../components/icons/TransactionsIcon.tsx';
-import { ChevronDownIcon } from '@radix-ui/react-icons';
 import { FilterIcon } from '../../../../components/icons/FilterIcon.tsx';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { MONTHS } from '../../../../../app/config/constants.ts';
@@ -9,9 +7,18 @@ import TransactionCard from './TransactionCard.tsx';
 import useTransactionsController from './useTransactionsController.ts';
 import Spinner from '../../../../components/Spinner.tsx';
 import emptyState from '../../../../../assets/empty-state.svg';
+import { TransactionTypeDropdown } from './TransactionTypeDropdown.tsx';
+import { FiltersModal } from './FiltersModal';
 
 function Transactions() {
-  const { isInitialLoading, isLoading, transactions } = useTransactionsController();
+  const {
+    isInitialLoading,
+    isLoading,
+    transactions,
+    isFilterModalOpen,
+    handleCloseFiltersModal,
+    handleOpenFiltersModal
+  } = useTransactionsController();
   const hasTransactions = transactions.length > 0;
 
   return (
@@ -23,15 +30,12 @@ function Transactions() {
       )}
       {!isInitialLoading && (
         <>
+          <FiltersModal open={isFilterModalOpen} onClose={handleCloseFiltersModal}/>
           <div className="flex flex-col gap-6">
             <div className="flex items-center justify-between">
-              <button className="flex items-center gap-2">
-                <TransactionsIcon />
-                <span className="text-gray-800 tracking-[-0.5px] font-medium">Transações</span>
-                <ChevronDownIcon />
-              </button>
-              <button>
-                <FilterIcon />
+              <TransactionTypeDropdown/>
+              <button onClick={handleOpenFiltersModal}>
+                <FilterIcon/>
               </button>
             </div>
 
@@ -40,11 +44,11 @@ function Transactions() {
                 slidesPerView={3}
                 centeredSlides
               >
-                <SliderNavigation />
+                <SliderNavigation/>
                 {MONTHS.map((month, index) => (
                   <SwiperSlide key={month}>
                     {({ isActive }) => (
-                      <SliderOption index={index} month={month} isActive={isActive} />
+                      <SliderOption index={index} month={month} isActive={isActive}/>
                     )}
                   </SwiperSlide>
                 ))}
@@ -60,7 +64,7 @@ function Transactions() {
             )}
             {(!hasTransactions && !isLoading) && (
               <div className="h-full flex flex-col justify-center items-center">
-                <img src={emptyState} />
+                <img src={emptyState}/>
                 <p className="text-gray-700 mt-4">Não encontramos nenhuma transação!</p>
               </div>
             )}
